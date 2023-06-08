@@ -1,0 +1,13 @@
+{
+  "internal_server_error": "Internal server error",
+  "common": {
+    "not_found": "{obj} is not found",
+    "existed": "{obj} is already existed",
+    "invalid": "{obj} is not valid",
+    "forbidden_access": "You are not allow to access {obj}"
+  },
+  "default_message": "Something went wrong!",
+  "token_expired": "Your session has expired. Please login again.",
+  "verify_code_invalid": "The code you entered is incorrect. Please try again.",
+  "email_not_found": "Email is not found"
+}
