@@ -118,7 +118,7 @@ export class BaseRepository<T extends Document> implements IBaseRepository<T> {
     return this.baseModule.aggregate(params);
   }
 
-  async bulkWrite(bulk, options?): Promise<void> {
+  async bulkWrite(bulk, options?): Promise<any> {
     return this.baseModule.bulkWrite(bulk, options);
   }
 

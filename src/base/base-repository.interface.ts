@@ -43,6 +43,6 @@ export interface IBaseRepository<T> {
   findOneAndDelete(params: IParamQuery<T>): Promise<T>;
   getModel(): Model<T>;
   aggregate(params: any[]): Promise<any[]>;
-  bulkWrite(bulk: any, options: any): Promise<void>;
+  bulkWrite(bulk: any, options: any): Promise<any>;
   distinct(field: string, params?: IParamQuery<T>): Promise<any>;
 }
