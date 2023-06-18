@@ -130,7 +130,7 @@ export class UserService {
       where: {
         appId: meetingStart.appId,
         status: MEETING_STATUS.UNPAID,
-        endedAt: null,
+        endedAt: {$ne: null},
       },
     });
     if (unpaidMeeting) {
