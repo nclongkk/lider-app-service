@@ -64,7 +64,7 @@ export class MeetingService {
       where.customRoomId = query.roomId;
     }
 
-    if (query.isPaid === 'true') {
+    if (query.unpaid === 'true') {
       _.set(where, 'status.$in', [MEETING_STATUS.UNPAID]);
     }
 
