@@ -143,6 +143,7 @@ export class UserService {
           fullName: user.fullName,
         },
       });
+      throw new BadRequestException('Something went wrong when start new meeting')
     }
 
     return await this.appRepository.meeting.createOne({
