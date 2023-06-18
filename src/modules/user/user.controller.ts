@@ -27,4 +27,10 @@ export class UserController {
   generateToken(@Req() req: any) {
     return this.userService.generateToken(req.user._id);
   }
+
+  @GqlAuthGuard()
+  @Post('recharge-meeting-fee')
+  rechargeMeetingFee(@Req() req: any, @Body('id') id: string) {
+    return this.userService.rechargeMeetingFee(req.user, id);
+  }
 }

@@ -130,7 +130,7 @@ export class UserService {
       where: {
         appId: meetingStart.appId,
         status: MEETING_STATUS.UNPAID,
-        endedAt: {$ne: null},
+        endedAt: { $ne: null },
       },
     });
     if (unpaidMeeting) {
@@ -143,7 +143,9 @@ export class UserService {
           fullName: user.fullName,
         },
       });
-      throw new BadRequestException('Something went wrong when start new meeting')
+      throw new BadRequestException(
+        'Something went wrong when start new meeting',
+      );
     }
 
     return await this.appRepository.meeting.createOne({
@@ -189,6 +191,42 @@ export class UserService {
         $set: {
           'members.$.disconnectedAt': new Date(),
         },
+      },
+    });
+  }
+
+  async rechargeMeetingFee(user, id) {
+    const meeting = await this.appRepository.meeting.getOne({
+      where: {
+        _id: id,
+        appId: user._id,
+        status: MEETING_STATUS.UNPAID,
+      },
+    });
+
+    if (!meeting) {
+      throw new BadRequestException('Meeting not found');
+    }
+
+    const { result: payment } = await this.paymentService.chargeServiceFee({
+      amount: meeting.costTracking.totalCost,
+      userId: String(meeting.appId),
+      meetingId: String(meeting._id),
+    });
+
+    return this.appRepository.meeting.findOneAndUpdate({
+      where: {
+        _id: meeting._id,
+        status: MEETING_STATUS.UNPAID,
+      },
+      data: {
+        $set: {
+          paymentId: payment._id,
+          status: MEETING_STATUS.PAID,
+        },
+      },
+      options: {
+        new: true,
       },
     });
   }
