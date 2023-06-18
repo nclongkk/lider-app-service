@@ -1,3 +1,4 @@
+import { AuthGqlService } from './../../shared/services/auth-service/auth-gql.service';
 import {
   BadRequestException,
   ForbiddenException,
@@ -16,6 +17,8 @@ import { MeetingService } from '../meeting/meeting.service';
 import { MeetingStartDto } from './dto/meeting-start.dto';
 import { UpdateUserMeetingDto } from './dto/update-user-meeting.dto';
 import { VerifyTokenDto } from './dto/verify-token.dto';
+import { SendEmailService } from '../mail/send-email.service';
+import { MAIL_TEMPLATES } from '../mail/constants/mail.constants';
 
 @Injectable()
 export class UserService {
@@ -24,6 +27,8 @@ export class UserService {
     private readonly meetingService: MeetingService,
     private readonly paymentService: PaymentService,
     private readonly logger: AppLoggerService,
+    private readonly authGqlService: AuthGqlService,
+    private readonly sendEmailService: SendEmailService,
   ) {}
 
   async createUserApp(userId: string) {
@@ -121,6 +126,25 @@ export class UserService {
   }
 
   async startNewMeeting(meetingStart: MeetingStartDto) {
+    const unpaidMeeting = await this.appRepository.meeting.getOne({
+      where: {
+        appId: meetingStart.appId,
+        status: MEETING_STATUS.UNPAID,
+        endedAt: null,
+      },
+    });
+    if (unpaidMeeting) {
+      const user = await this.authGqlService.queryUserById(meetingStart.appId);
+      this.sendEmailService.sendEmail({
+        to: user.email,
+        subject: 'Meeting is unpaid',
+        template: MAIL_TEMPLATES.RECHARGE_MEETING,
+        data: {
+          fullName: user.fullName,
+        },
+      });
+    }
+
     return await this.appRepository.meeting.createOne({
       data: {
         roomId: meetingStart.roomId,
@@ -194,6 +218,7 @@ export class UserService {
           costTracking,
         },
       });
+      $set.status = MEETING_STATUS.UNPAID;
     }
 
     const [, room] = await Promise.all([

@@ -7,3 +7,12 @@ export const DEFAULT_USER_QUERY = gql`
     }
   }
 `;
+
+export const GET_USER_BY_ID = gql`
+  query userById($id: String!) {
+    userById(id: $id) {
+      email
+      fullName
+    }
+  }
+`;

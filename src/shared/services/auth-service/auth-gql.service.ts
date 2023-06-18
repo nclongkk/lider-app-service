@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { AppConfigService } from '../../../config/config.service';
 import { GqlRequestService } from '../../../helper/gql-request/gql-request.service';
 import { AppLoggerService } from '../../../logger/logger.service';
+import { GET_USER_BY_ID } from './auth-graphql-query';
 
 @Injectable()
 export class AuthGqlService extends GqlRequestService {
@@ -38,5 +39,17 @@ export class AuthGqlService extends GqlRequestService {
       },
     });
     return user;
+  }
+
+  async queryUserById(id) {
+    const { userById } = await this.request({
+      url: this.authGqlUrl,
+      query: GET_USER_BY_ID,
+      variables: {
+        id,
+      },
+    });
+
+    return userById;
   }
 }

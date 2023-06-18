@@ -5,6 +5,7 @@ import { swaggerConfigurationFn } from './swagger/configuration';
 import { databaseConfigurationFn } from './database/configuration';
 import { servicesConfigurationFn } from './services/configuration';
 import { feeConfigurationFn } from './fee/configuration';
+import { mailConfigurationFn } from './mail/configuration';
 
 export const configuration = () => ({
   app: appConfigurationFn(),
@@ -14,4 +15,5 @@ export const configuration = () => ({
   database: databaseConfigurationFn(),
   service: servicesConfigurationFn(),
   fee: feeConfigurationFn(),
+  mail: mailConfigurationFn(),
 });

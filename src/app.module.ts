@@ -18,6 +18,7 @@ import { MeetingModule } from './modules/meeting/meeting.module';
 import { PaymentModule } from './shared/services/payment-service/payment.module';
 import { StatisticModule } from './modules/statistics/statistic.module';
 import { HelperModule } from './helper/helper/helper.module';
+import { SendEmailModule } from './modules/mail/send-email.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { HelperModule } from './helper/helper/helper.module';
     MeetingModule,
     PaymentModule,
     StatisticModule,
+    SendEmailModule,
   ],
   controllers: [AppController],
   providers: [AppService, SwaggerConfig],

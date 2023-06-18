@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  style="
+    font-family: 'SVN-Gilroy', arial, helvetica, sans-serif;
+    font-size: 16px;
+  "
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notify recharge meeting</title>
+
+    <style>
+      .btn-submit:hover {
+        transition: all 0.5s ease-in-out;
+        box-shadow: 0 0 7px #ec284b;
+      }
+
+      .icon-chat:hover {
+        width: max-content;
+      }
+
+      .icon-chat:hover .icon-content {
+        display: block !important;
+        position: relative;
+      }
+
+      @media (max-width: 767px) {
+        body {
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        .container {
+          margin-top: 0 !important;
+        }
+
+        .content {
+          margin-top: 0;
+        }
+        .img-right img {
+          width: 100%;
+        }
+
+        .btn-chat {
+          margin-top: 1rem;
+        }
+
+        footer {
+          padding: 0 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body style="background: #e5e5e5; color: #16213e; padding: 1rem">
+    <div
+      class="container"
+      style="
+        max-width: 530px;
+        width: 100%;
+        height: auto;
+        margin: 33px auto;
+        border: 1px solid #e5e5e5;
+        box-shadow: 0px 0px 10px 1px #e5e5e5;
+      "
+    >
+      <div
+        class="content"
+        style="padding: 21px 23px; background-color: #ffffff"
+      >
+        <div class="header-content">
+          <div class="img-right">
+            <div class="logo" style="max-width: 360px; margin: 0 auto">
+              <img
+                src="https://i.postimg.cc/SxJY78hF/Screen-Shot-2023-04-15-at-12-49-37.png"
+                alt="Lider"
+                style="width: 100%"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="center-content" style="padding: 0 14px 0 20px">
+          <p
+            class="content-email"
+            style="line-height: 198.19%; letter-spacing: 1px"
+          >
+            Hello <strong><%=fullName%>,</strong><br />
+            A meeting started by your app hasn't paid yet. You need to recharge
+            if you want to continue using the service.<br />
+          </p>
+          <div class="btn" style="text-align: center; margin: 2rem 0">
+            <a
+              href="https://laas.it-pfiev-dut.tech"
+              class="btn-submit"
+              style="
+                text-decoration: none;
+                color: #fff;
+                padding: 7.5px 34px;
+                border-radius: 109px;
+                background-color: #ec284b;
+                font-size: 15px;
+              "
+              >Recharge now</a
+            >
+          </div>
+          <p
+            class="content-footer"
+            style="
+              font-size: 14px;
+              font-weight: bold;
+              line-height: 1.5rem;
+              margin-top: 2rem;
+            "
+          >
+            Thank you for using Lider's services.<br />
+            Have a great day,<br />
+            Lider Team
+          </p>
+        </div>
+        <div
+          class="btn-chat"
+          style="margin: 0 34px 18px; overflow: hidden"
+        ></div>
+      </div>
+      <div
+        class="get-in-touch"
+        style="background-color: #5865f2; padding: 26px 14px 45px"
+      ></div>
+    </div>
+  </body>
+</html>
