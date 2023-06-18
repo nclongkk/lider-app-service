@@ -9,6 +9,7 @@ import { PaymentService } from '../../shared/services/payment-service/payment.se
 import { calculateTotalMeetingDuration } from '../../shared/utils/common.util';
 import { createMongoIdByTimestamp } from '../../utils';
 import { MEETING_STATUS } from './constants/meetings.constant';
+import * as _ from 'lodash';
 
 @Injectable()
 export class MeetingService {
@@ -37,6 +38,7 @@ export class MeetingService {
 
     if (query?.to) {
       where._id = {
+        ...where._id,
         $lte: createMongoIdByTimestamp(
           moment.utc(query.to).endOf('day').valueOf() / 1000,
           'to-time',
@@ -48,7 +50,7 @@ export class MeetingService {
       where.endedAt = null;
     }
 
-    if (query?.isActive === 'false') {
+    if (query?.isEnded === 'true' && query?.isActive !== 'true') {
       where.endedAt = {
         $ne: null,
       };
@@ -60,6 +62,17 @@ export class MeetingService {
 
     if (query?.roomId) {
       where.customRoomId = query.roomId;
+    }
+
+    if (query.isPaid === 'true') {
+      _.set(where, 'status.$in', [MEETING_STATUS.UNPAID]);
+    }
+
+    if (query.paid === 'true') {
+      _.set(where, 'status.$in', [
+        ..._.get(where, 'status.$in', []),
+        MEETING_STATUS.PAID,
+      ]);
     }
 
     return this.appRepository.meeting.getAllWithPaging({

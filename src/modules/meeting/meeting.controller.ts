@@ -26,6 +26,21 @@ export class MeetingController {
     type: Boolean,
   })
   @ApiQuery({
+    name: 'isEnded',
+    required: false,
+    type: Boolean,
+  })
+  @ApiQuery({
+    name: 'isPaid',
+    required: false,
+    type: Boolean,
+  })
+  @ApiQuery({
+    name: 'isUnpaid',
+    required: false,
+    type: Boolean,
+  })
+  @ApiQuery({
     name: 'accessType',
     required: false,
     type: String,
